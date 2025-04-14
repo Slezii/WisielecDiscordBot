@@ -31,7 +31,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
       working-directory: ./src/WisielecDiscordBot
 
-      - name: Publish project
+    - name: Publish project
       run: dotnet publish -c Release -o publish
 
     - name: Upload artifact
