@@ -18,6 +18,9 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
+        
+    - name: Switch to solution directory
+      run: cd src/WisielecDiscordBot
 
     - name: Restore dependencies
       run: dotnet restore
