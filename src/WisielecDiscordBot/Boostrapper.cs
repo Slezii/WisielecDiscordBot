@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using WisielecDiscordBot.Infrastructure;
+using WisielecDiscordBot.Infrastructure.Extensions;
 
 namespace WisielecDiscordBot
 {
@@ -22,7 +23,10 @@ namespace WisielecDiscordBot
         {
             _client = new DiscordSocketClient(new DiscordSocketConfig
             {
-                LogLevel = LogSeverity.Info
+                LogLevel = LogSeverity.Info,
+                GatewayIntents = GatewayIntents.Guilds |
+                     GatewayIntents.GuildMessages |
+                     GatewayIntents.MessageContent
             });
 
             _commands = new CommandService();
@@ -38,8 +42,8 @@ namespace WisielecDiscordBot
 
             _services = new ServiceCollection()
                 .AddSingleton(_client)
-                .AddSingleton(_commands)
-                .AddSingleton<DiscordCommandHandler>()
+                .AddSingleton(_commands).AddSingleton(_services)
+                .AddAttributedInjectables()
                 .BuildServiceProvider();
 
             await _services.GetRequiredService<DiscordCommandHandler>().InitializeAsync();

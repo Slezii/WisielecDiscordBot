@@ -2,9 +2,12 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using System.Reflection;
+using WisielecDiscordBot.Infrastructure.Abstractions;
+using WisielecDiscordBot.Infrastructure.Attributes;
 
 namespace WisielecDiscordBot.Infrastructure
 {
+    [Injectable(Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton)]
     internal class DiscordCommandHandler
     {
         private readonly DiscordSocketClient _client;
@@ -27,7 +30,7 @@ namespace WisielecDiscordBot.Infrastructure
         private async Task HandleCommandAsync(SocketMessage arg)
         {
             if (arg is not SocketUserMessage msg || msg.Author.IsBot) return;
-
+            Console.WriteLine($"Message received: '{msg.Content}'");
             int argPos = 0;
             if (!msg.HasCharPrefix('!', ref argPos)) return;
 
