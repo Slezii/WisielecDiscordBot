@@ -33,12 +33,13 @@ jobs:
 
     - name: Publish project
       run: dotnet publish -c Release -o publish
+      working-directory: ./src/WisielecDiscordBot
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: published-app
-        path: ./src/WisielecDiscordBotpublish
+        path: ./src/WisielecDiscordBot/publish
 
   docker:
     needs: build
