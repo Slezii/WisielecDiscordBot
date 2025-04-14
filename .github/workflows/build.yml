@@ -19,14 +19,14 @@ jobs:
       with:
         dotnet-version: '8.0.x'
         
-    - name: Switch to solution directory
-      run: cd src/WisielecDiscordBot
-
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: ./src/WisielecDiscordBot
 
     - name: Build
       run: dotnet build --configuration Release --no-restore
+      working-directory: ./src/WisielecDiscordBot
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      working-directory: ./src/WisielecDiscordBot
