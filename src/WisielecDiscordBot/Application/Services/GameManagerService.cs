@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WisielecDiscordBot.Infrastructure.Abstractions;
+using WisielecDiscordBot.Application.Abstractions.Interfaces;
 
-namespace WisielecDiscordBot.Infrastructure.Services
+namespace WisielecDiscordBot.Application.Services
 {
     internal class GameManagerService : IGameManagerService
     {

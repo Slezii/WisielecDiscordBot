@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using WisielecDiscordBot.Infrastructure;
 using WisielecDiscordBot.Infrastructure.Extensions;
+using WisielecDiscordBot.Infrastructure.Abstractions.Interfaces;
+using WisielecDiscordBot.Infrastructure.Configurations;
 
 namespace WisielecDiscordBot
 {
@@ -42,14 +44,15 @@ namespace WisielecDiscordBot
 
             _services = new ServiceCollection()
                 .AddSingleton(_client)
-                .AddSingleton(_commands).AddSingleton(_services)
+                .AddSingleton(_commands)
+                .AddSingleton<IConfiguration>(config)
                 .AddAttributedInjectables()
                 .BuildServiceProvider();
 
-            await _services.GetRequiredService<DiscordCommandHandler>().InitializeAsync();
-
-            string token = config["token"];
-            await _client.LoginAsync(TokenType.Bot, token);
+            await _services.GetRequiredService<IDiscordCommandHandler>().InitializeAsync();
+            var configuratonService = _services.GetRequiredService<IAppConfig>();
+            var discordConfig = configuratonService.GetValue<DiscordApiConfiguration>();
+            await _client.LoginAsync(TokenType.Bot, discordConfig.Token);
             await _client.StartAsync();
 
             await Task.Delay(Timeout.Infinite);

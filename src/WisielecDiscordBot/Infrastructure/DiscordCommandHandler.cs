@@ -2,13 +2,13 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using System.Reflection;
-using WisielecDiscordBot.Infrastructure.Abstractions;
+using WisielecDiscordBot.Infrastructure.Abstractions.Interfaces;
 using WisielecDiscordBot.Infrastructure.Attributes;
 
 namespace WisielecDiscordBot.Infrastructure
 {
     [Injectable(Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton)]
-    internal class DiscordCommandHandler
+    internal class DiscordCommandHandler : IDiscordCommandHandler
     {
         private readonly DiscordSocketClient _client;
         private readonly CommandService _commands;

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WisielecDiscordBot.Infrastructure.Abstractions
+namespace WisielecDiscordBot.Infrastructure.Exceptions
 {
-    internal interface IGameManagerService
+    internal class ConfigurationNotFoundException : Exception
     {
     }
 }
